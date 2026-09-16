@@ -1,0 +1,50 @@
+[
+  {
+    "id": "hist-1789562885295",
+    "timestamp": "2026-09-16T12:48:05.295Z",
+    "location": "New Delhi",
+    "mode": "Fitness",
+    "activity": "Exercise",
+    "overallScore": 70,
+    "status": "HIGH",
+    "verdict": "NOT_RECOMMENDED",
+    "aqi": 211,
+    "temp": 37
+  },
+  {
+    "id": "hist-1",
+    "timestamp": "2026-09-15T09:30:00Z",
+    "location": "Connaught Place, New Delhi",
+    "mode": "Fitness",
+    "activity": "Outdoor Exercise",
+    "overallScore": 84,
+    "status": "SEVERE",
+    "verdict": "NOT_RECOMMENDED",
+    "aqi": 260,
+    "temp": 39
+  },
+  {
+    "id": "hist-2",
+    "timestamp": "2026-09-14T17:15:00Z",
+    "location": "Bandra West, Mumbai",
+    "mode": "Daily Commuter",
+    "activity": "City Commute",
+    "overallScore": 72,
+    "status": "HIGH",
+    "verdict": "NOT_RECOMMENDED",
+    "aqi": 45,
+    "temp": 29
+  },
+  {
+    "id": "hist-3",
+    "timestamp": "2026-09-14T08:00:00Z",
+    "location": "Indiranagar, Bengaluru",
+    "mode": "Student",
+    "activity": "College / School",
+    "overallScore": 24,
+    "status": "LOW",
+    "verdict": "RECOMMENDED",
+    "aqi": 35,
+    "temp": 24
+  }
+]
