@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production builds
+dist/
+**/dist/
+dist-ssr/
+
+# Environment and sensitive credentials (DO NOT COMMIT API KEYS)
+.env
+.env*.local
+**/.env
+**/.env*.local
+!**/.env.example
+
+# Zip archives
+*.zip
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS and Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Backend
+backend/
