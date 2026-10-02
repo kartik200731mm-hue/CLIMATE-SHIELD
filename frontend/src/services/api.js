@@ -1,5 +1,18 @@
 // Frontend API Client for ClimateShield Express Backend
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  if (typeof window !== 'undefined') {
+    // If running in browser on localhost or 127.0.0.1, connect to local backend port 5000
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:5000/api';
+    }
+    // On Vercel, production, and any other device/phone, use relative /api
+    return '/api';
+  }
+  return '/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Fetch live weather and live air quality from Express backend
