@@ -21,7 +21,7 @@ export default function ModeSelector({ selectedMode, onSelectMode }) {
         <div className="mode-grid">
           {USER_MODES.map((mode) => {
             const IconComponent = ICON_MAP[mode.icon] || Activity;
-            const isSelected = selectedMode === mode.id;
+            const isSelected = (selectedMode || '').toLowerCase() === mode.id.toLowerCase();
             return (
               <button
                 key={mode.id}

@@ -219,7 +219,7 @@ export default function LocationSearchBar({ onSelectLocation, isSearching }) {
                   {loc.name}
                 </div>
                 <div style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>
-                  {[loc.state, loc.country].filter(Boolean).join(', ')} • {loc.latitude.toFixed(2)}°, {loc.longitude.toFixed(2)}°
+                  {[loc.state, loc.country].filter(Boolean).join(', ')} • {(Number(loc.latitude) || 0).toFixed(2)}°, {(Number(loc.longitude) || 0).toFixed(2)}°
                 </div>
               </div>
             </div>

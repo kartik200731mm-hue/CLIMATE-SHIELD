@@ -61,6 +61,10 @@ export const getWeather = async (req, res, next) => {
           uvIndex: weatherData.uvIndex,
           tempMax: weatherData.tempMax,
           tempMin: weatherData.tempMin,
+          sunrise: weatherData.sunrise,
+          sunset: weatherData.sunset,
+          hourlyForecast: weatherData.hourlyForecast,
+          dailyForecast: weatherData.dailyForecast,
           source: weatherData.source,
           fetchedAt: weatherData.fetchedAt
         },

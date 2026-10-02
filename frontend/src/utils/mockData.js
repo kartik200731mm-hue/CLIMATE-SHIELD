@@ -107,9 +107,11 @@ export const MOCK_SCENARIOS = [
 ];
 
 // Pure deterministic computation function for client-side instant responsiveness
-export function evaluateClimateRisk({ weather, airQuality, mode, activity }) {
+export function evaluateClimateRisk({ weather, airQuality, mode = 'Student', activity = 'College' }) {
+  if (!weather) return null;
+
   // 1. Heat Risk (0-100)
-  const effectiveTemp = weather.feelsLike || weather.temperature;
+  const effectiveTemp = weather.feelsLike ?? weather.temperature ?? 25;
   let heatScore = 15;
   if (effectiveTemp > 42) heatScore = 95;
   else if (effectiveTemp > 38) heatScore = 80;
@@ -118,11 +120,13 @@ export function evaluateClimateRisk({ weather, airQuality, mode, activity }) {
   else if (effectiveTemp < 10) heatScore = 55; // cold stress
 
   // 2. Rain Risk (0-100)
-  const rainScore = Math.min(100, Math.round((weather.rainProbability * 0.6) + (Math.min(weather.precipitation, 30) * 1.33)));
+  const rainProb = weather.rainProbability ?? 0;
+  const precip = weather.precipitation ?? 0;
+  const rainScore = Math.min(100, Math.round((rainProb * 0.6) + (Math.min(precip, 30) * 1.33)));
 
   // 3. AQI Risk (0-100)
   let aqiScore = 20;
-  const aqi = airQuality.aqi || 50;
+  const aqi = airQuality?.aqi ?? 50;
   if (aqi > 200) aqiScore = 92;
   else if (aqi > 150) aqiScore = 78;
   else if (aqi > 100) aqiScore = 60;
@@ -130,38 +134,45 @@ export function evaluateClimateRisk({ weather, airQuality, mode, activity }) {
   else aqiScore = 18;
 
   // 4. Outdoor Risk (Activity-dependent)
-  let outdoorScore = Math.round(heatScore * 0.35 + aqiScore * 0.40 + (weather.uvIndex * 8 * 0.15) + (weather.windSpeed * 0.1));
+  const uv = weather.uvIndex ?? 5;
+  const wind = weather.windSpeed ?? 10;
+  let outdoorScore = Math.round(heatScore * 0.35 + aqiScore * 0.40 + (uv * 8 * 0.15) + (wind * 0.1));
   if (activity === 'Exercise' || activity === 'Cycling') {
     outdoorScore = Math.min(100, Math.round(outdoorScore * 1.25));
   }
 
   // 5. Travel Risk (Transit-dependent)
-  let travelScore = Math.round(rainScore * 0.50 + (weather.windSpeed * 1.2 * 0.30) + (heatScore * 0.20));
+  let travelScore = Math.round(rainScore * 0.50 + (wind * 1.2 * 0.30) + (heatScore * 0.20));
   if (activity === 'Cycling') {
     travelScore = Math.min(100, Math.round(travelScore * 1.30));
   } else if (activity === 'College' || activity === 'Travel') {
     if (rainScore > 70) travelScore = Math.min(100, travelScore + 15);
   }
 
-  // Contextual Mode Weights
-  let weights = { heat: 0.30, rain: 0.20, aqi: 0.25, outdoor: 0.15, travel: 0.10 };
-  if (mode === 'Fitness') {
+  // Contextual Mode Weights (supports all 12 personas and standard modes)
+  const normalizedMode = (mode || 'Student').toLowerCase();
+  let weights = { heat: 0.25, rain: 0.25, aqi: 0.20, outdoor: 0.15, travel: 0.15 };
+  if (normalizedMode === 'fitness' || normalizedMode === 'athlete') {
     weights = { heat: 0.25, rain: 0.10, aqi: 0.35, outdoor: 0.25, travel: 0.05 };
-  } else if (mode === 'Daily Commuter') {
+  } else if (normalizedMode.includes('commuter') || normalizedMode === 'delivery' || normalizedMode.includes('senior')) {
     weights = { heat: 0.15, rain: 0.35, aqi: 0.15, outdoor: 0.10, travel: 0.25 };
-  } else if (mode === 'Student') {
+  } else if (normalizedMode === 'student' || normalizedMode === 'parent') {
     weights = { heat: 0.25, rain: 0.25, aqi: 0.20, outdoor: 0.15, travel: 0.15 };
-  } else if (mode === 'Farmer') {
+  } else if (normalizedMode === 'farmer' || normalizedMode.includes('worker')) {
     weights = { heat: 0.35, rain: 0.30, aqi: 0.10, outdoor: 0.15, travel: 0.10 };
+  } else if (normalizedMode === 'traveller' || normalizedMode === 'photographer') {
+    weights = { heat: 0.20, rain: 0.25, aqi: 0.20, outdoor: 0.20, travel: 0.15 };
+  } else if (normalizedMode === 'cyclist') {
+    weights = { heat: 0.20, rain: 0.30, aqi: 0.30, outdoor: 0.10, travel: 0.10 };
   }
 
-  const overallScore = Math.min(100, Math.round(
+  const overallScore = Math.min(100, Math.max(0, Math.round(
     heatScore * weights.heat +
     rainScore * weights.rain +
     aqiScore * weights.aqi +
     outdoorScore * weights.outdoor +
     travelScore * weights.travel
-  ));
+  )));
 
   let status = 'LOW';
   if (overallScore > 80) status = 'SEVERE';

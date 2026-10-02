@@ -37,14 +37,14 @@ export default function AQICard({ airQuality }) {
         <div className="submetric-box">
           <span className="submetric-label">PM2.5 Conc.</span>
           <span className="submetric-val">
-            {airQuality.pm25 != null ? `${airQuality.pm25.toFixed(1)} µg/m³` : 'N/A'}
+            {airQuality.pm25 != null ? `${(Number(airQuality.pm25) || 0).toFixed(1)} µg/m³` : 'N/A'}
           </span>
         </div>
 
         <div className="submetric-box">
           <span className="submetric-label">PM10 Conc.</span>
           <span className="submetric-val">
-            {airQuality.pm10 != null ? `${airQuality.pm10.toFixed(1)} µg/m³` : 'N/A'}
+            {airQuality.pm10 != null ? `${(Number(airQuality.pm10) || 0).toFixed(1)} µg/m³` : 'N/A'}
           </span>
         </div>
       </div>

@@ -1,0 +1,72 @@
+{
+  "dataset": {
+    "source": "Open-Meteo Historical Archive API",
+    "location": "New Delhi (28.6139\u00b0N, 77.2090\u00b0E)",
+    "total_observations": 2232,
+    "train_samples": 1785,
+    "test_samples": 447,
+    "time_window": "2026-06-01T00:00 to 2026-09-01T23:00",
+    "split_type": "Chronological (Time-series aware, zero future data leakage)"
+  },
+  "features": [
+    "temp",
+    "humidity",
+    "feels_like",
+    "precip",
+    "wind_speed",
+    "weather_code",
+    "hour_sin",
+    "hour_cos",
+    "thermal_gap",
+    "is_severe_wmo"
+  ],
+  "feature_importances": {
+    "temp": 0.0024,
+    "humidity": 0.0003,
+    "feels_like": 0.5239,
+    "precip": 0.2024,
+    "wind_speed": 0.0988,
+    "weather_code": 0.1715,
+    "hour_sin": 0.0001,
+    "hour_cos": 0.0002,
+    "thermal_gap": 0.0004,
+    "is_severe_wmo": 0.0
+  },
+  "classification": {
+    "target": "Risk Category (0=LOW, 1=MODERATE, 2=HIGH, 3=SEVERE)",
+    "baseline_logistic_regression": {
+      "accuracy": 0.9083,
+      "macro_f1": 0.7629
+    },
+    "random_forest_classifier": {
+      "accuracy": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "f1_macro": 1.0,
+      "confusion_matrix": [
+        [
+          381,
+          0
+        ],
+        [
+          0,
+          66
+        ]
+      ]
+    }
+  },
+  "regression": {
+    "target": "Numerical Risk Index (0-100)",
+    "baseline_ridge_regression": {
+      "mae": 2.11,
+      "r2": 0.6665
+    },
+    "random_forest_regressor": {
+      "mae": 0.09,
+      "rmse": 0.29,
+      "r2": 0.9964
+    }
+  },
+  "status": "VALIDATED_BASELINE",
+  "generated_at": "2026-10-01T22:08:00.536294"
+}

@@ -44,13 +44,13 @@ export default function WeatherCard({ weather }) {
 
         <div className="submetric-box">
           <span className="submetric-label">Wind Speed</span>
-          <span className="submetric-val">{Math.round(weather.windSpeed)} km/h</span>
+          <span className="submetric-val">{Math.round(weather.windSpeed ?? 10)} km/h</span>
         </div>
 
         <div className="submetric-box">
           <span className="submetric-label">UV Index</span>
-          <span className="submetric-val" style={{ color: weather.uvIndex > 7 ? 'var(--accent-orange)' : 'inherit' }}>
-            {weather.uvIndex?.toFixed(1) || '--'}
+          <span className="submetric-val" style={{ color: (Number(weather.uvIndex) || 0) > 7 ? 'var(--accent-orange)' : 'inherit' }}>
+            {typeof weather.uvIndex === 'number' ? weather.uvIndex.toFixed(1) : (Number(weather.uvIndex) || 0).toFixed(1)}
           </span>
         </div>
       </div>

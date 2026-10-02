@@ -1,5 +1,29 @@
 // ClimateShield System Constants & Configuration
 
+export const WMO_WEATHER_CODES = {
+  0: { condition: 'Clear Sky', icon: 'Sun' },
+  1: { condition: 'Mainly Clear', icon: 'Sun' },
+  2: { condition: 'Partly Cloudy', icon: 'CloudSun' },
+  3: { condition: 'Overcast', icon: 'Cloud' },
+  45: { condition: 'Foggy', icon: 'CloudFog' },
+  48: { condition: 'Depositing Rime Fog', icon: 'CloudFog' },
+  51: { condition: 'Light Drizzle', icon: 'CloudDrizzle' },
+  53: { condition: 'Moderate Drizzle', icon: 'CloudDrizzle' },
+  55: { condition: 'Dense Drizzle', icon: 'CloudDrizzle' },
+  61: { condition: 'Slight Rain', icon: 'CloudRain' },
+  63: { condition: 'Moderate Rain', icon: 'CloudRain' },
+  65: { condition: 'Heavy Rain', icon: 'CloudRain' },
+  71: { condition: 'Slight Snow', icon: 'CloudSnow' },
+  73: { condition: 'Moderate Snow', icon: 'CloudSnow' },
+  75: { condition: 'Heavy Snow', icon: 'CloudSnow' },
+  80: { condition: 'Slight Rain Showers', icon: 'CloudRain' },
+  81: { condition: 'Moderate Rain Showers', icon: 'CloudRain' },
+  82: { condition: 'Violent Rain Showers', icon: 'CloudRain' },
+  95: { condition: 'Thunderstorm', icon: 'CloudLightning' },
+  96: { condition: 'Thunderstorm with Slight Hail', icon: 'CloudLightning' },
+  99: { condition: 'Thunderstorm with Heavy Hail', icon: 'CloudLightning' }
+};
+
 export const USER_MODES = [
   {
     id: 'Student',
@@ -56,37 +80,37 @@ export const RISK_LEVELS = {
     label: 'LOW RISK',
     min: 0,
     max: 30,
-    color: '#10b981', // Emerald
-    bgColor: 'rgba(16, 185, 129, 0.12)',
-    borderColor: 'rgba(16, 185, 129, 0.35)',
+    color: '#4F8061',
+    bgColor: '#E8EFE9',
+    borderColor: '#E1E5E1',
     description: 'Environmental conditions are safe and comfortable for general activities.'
   },
   MODERATE: {
     label: 'MODERATE RISK',
     min: 31,
     max: 60,
-    color: '#f59e0b', // Amber
-    bgColor: 'rgba(245, 158, 11, 0.12)',
-    borderColor: 'rgba(245, 158, 11, 0.35)',
+    color: '#B58A45',
+    bgColor: 'rgba(181, 138, 69, 0.12)',
+    borderColor: '#ECEFEC',
     description: 'Mild environmental stress detected. Exercise standard precautions.'
   },
   HIGH: {
     label: 'HIGH RISK',
     min: 61,
     max: 80,
-    color: '#f97316', // Orange
-    bgColor: 'rgba(249, 115, 22, 0.12)',
-    borderColor: 'rgba(249, 115, 22, 0.35)',
+    color: '#D97706',
+    bgColor: 'rgba(217, 119, 6, 0.12)',
+    borderColor: '#ECEFEC',
     description: 'Adverse weather or elevated air pollution. Caution or rescheduling advised.'
   },
   SEVERE: {
     label: 'SEVERE RISK',
     min: 81,
     max: 100,
-    color: '#ef4444', // Red
-    bgColor: 'rgba(239, 68, 68, 0.15)',
-    borderColor: 'rgba(239, 68, 68, 0.45)',
-    description: 'Hazardous environmental conditions. Avoid non-essential outdoor exposure.'
+    color: '#B95F5F',
+    bgColor: 'rgba(185, 95, 95, 0.12)',
+    borderColor: '#ECEFEC',
+    description: 'Hazardous environmental strain. Outdoor exposure strongly discouraged.'
   }
 };
 
@@ -94,25 +118,25 @@ export const DECISIONS = {
   RECOMMENDED: {
     text: 'RECOMMENDED',
     badgeText: 'Safe to Go Outside',
-    color: '#10b981',
-    bgColor: 'rgba(16, 185, 129, 0.15)',
-    borderColor: '#10b981',
+    color: '#4F8061',
+    bgColor: '#E8EFE9',
+    borderColor: '#E1E5E1',
     icon: 'CheckCircle2'
   },
   CAUTION: {
     text: 'CAUTION ADVISED',
     badgeText: 'Proceed with Caution',
-    color: '#f59e0b',
-    bgColor: 'rgba(245, 158, 11, 0.15)',
-    borderColor: '#f59e0b',
+    color: '#B58A45',
+    bgColor: 'rgba(181, 138, 69, 0.12)',
+    borderColor: '#ECEFEC',
     icon: 'AlertTriangle'
   },
   NOT_RECOMMENDED: {
     text: 'NOT RECOMMENDED',
     badgeText: 'Avoid Outdoor Activity',
-    color: '#ef4444',
-    bgColor: 'rgba(239, 68, 68, 0.18)',
-    borderColor: '#ef4444',
+    color: '#B95F5F',
+    bgColor: 'rgba(185, 95, 95, 0.12)',
+    borderColor: '#ECEFEC',
     icon: 'XCircle'
   }
 };

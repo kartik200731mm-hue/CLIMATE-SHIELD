@@ -122,11 +122,19 @@ export const fetchWeatherByCoordinates = async (latitude, longitude) => {
             'weather_code',
             'wind_speed_10m'
           ].join(','),
+          hourly: [
+            'temperature_2m',
+            'precipitation_probability',
+            'weather_code'
+          ].join(','),
           daily: [
             'temperature_2m_max',
             'temperature_2m_min',
             'precipitation_probability_max',
-            'uv_index_max'
+            'uv_index_max',
+            'sunrise',
+            'sunset',
+            'weather_code'
           ].join(','),
           timezone: 'auto'
         },
@@ -135,7 +143,7 @@ export const fetchWeatherByCoordinates = async (latitude, longitude) => {
       fetchAirQuality(latitude, longitude)
     ]);
 
-    const { current, daily } = weatherResponse.data;
+    const { current, daily, hourly } = weatherResponse.data;
 
     if (!current) {
       throw new Error('Malformed meteorological payload received from provider.');
@@ -143,11 +151,53 @@ export const fetchWeatherByCoordinates = async (latitude, longitude) => {
 
     const rainProbability = daily?.precipitation_probability_max?.[0] ?? (current.rain > 0 ? 80 : 15);
     const uvIndex = daily?.uv_index_max?.[0] ?? 5.0;
+    const sunrise = daily?.sunrise?.[0] || null;
+    const sunset = daily?.sunset?.[0] || null;
+
     const reliability = calculateForecastReliability({
       rainProbability,
       windSpeed: current.wind_speed_10m,
       weatherCode: current.weather_code
     });
+
+    // Parse Hourly Forecast (next 24 hours)
+    const hourlyForecast = [];
+    if (hourly && Array.isArray(hourly.time)) {
+      const nowIso = new Date().toISOString();
+      let startIndex = hourly.time.findIndex((t) => t >= nowIso.slice(0, 13));
+      if (startIndex < 0) startIndex = 0;
+
+      for (let i = startIndex; i < startIndex + 24 && i < hourly.time.length; i++) {
+        const timeStr = hourly.time[i];
+        const dateObj = new Date(timeStr);
+        hourlyForecast.push({
+          time: timeStr,
+          timeLabel: i === startIndex ? 'Now' : dateObj.toLocaleTimeString([], { hour: 'numeric', hour12: true }),
+          temp: hourly.temperature_2m?.[i] ?? current.temperature_2m,
+          rainProb: hourly.precipitation_probability?.[i] ?? 0,
+          weatherCode: hourly.weather_code?.[i] ?? 0
+        });
+      }
+    }
+
+    // Parse 7-Day Daily Forecast
+    const dailyForecast = [];
+    if (daily && Array.isArray(daily.time)) {
+      for (let i = 0; i < daily.time.length && i < 7; i++) {
+        const timeStr = daily.time[i];
+        const dateObj = new Date(timeStr);
+        dailyForecast.push({
+          date: timeStr,
+          dayName: i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : dateObj.toLocaleDateString(undefined, { weekday: 'short' }),
+          dateLabel: dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }),
+          maxTemp: daily.temperature_2m_max?.[i] ?? current.temperature_2m,
+          minTemp: daily.temperature_2m_min?.[i] ?? current.temperature_2m,
+          rainProb: daily.precipitation_probability_max?.[i] ?? 0,
+          uvIndex: daily.uv_index_max?.[i] ?? 5.0,
+          weatherCode: daily.weather_code?.[i] ?? 0
+        });
+      }
+    }
 
     return {
       temperature: current.temperature_2m,
@@ -161,6 +211,10 @@ export const fetchWeatherByCoordinates = async (latitude, longitude) => {
       uvIndex,
       tempMax: daily?.temperature_2m_max?.[0] ?? current.temperature_2m,
       tempMin: daily?.temperature_2m_min?.[0] ?? current.temperature_2m,
+      sunrise,
+      sunset,
+      hourlyForecast,
+      dailyForecast,
       source: 'Open-Meteo Atmospheric Observation Network',
       fetchedAt: new Date().toISOString(),
       airQuality: airQualityData,

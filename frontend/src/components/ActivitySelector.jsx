@@ -20,7 +20,7 @@ export default function ActivitySelector({ selectedActivity, onSelectActivity })
       <div className="activity-chips">
         {ACTIVITIES.map((activity) => {
           const IconComponent = ICON_MAP[activity.icon] || Calendar;
-          const isSelected = selectedActivity === activity.id;
+          const isSelected = (selectedActivity || '').toLowerCase() === activity.id.toLowerCase();
           return (
             <button
               key={activity.id}

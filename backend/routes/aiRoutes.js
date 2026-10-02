@@ -1,5 +1,5 @@
 import express from 'express';
-import { explainRisk, chatAdvisor } from '../controllers/aiController.js';
+import { explainRisk, chatAdvisor, executeAgent } from '../controllers/aiController.js';
 
 const router = express.Router();
 
@@ -8,5 +8,8 @@ router.post('/explain', explainRisk);
 
 // Interactive conversational assistant grounded in climate telemetry
 router.post('/chat', chatAdvisor);
+
+// Execute a Sovereign Intelligence Agent
+router.post('/agent-analyze', executeAgent);
 
 export default router;

@@ -102,6 +102,81 @@ export async function saveHistoryRecord(record) {
 }
 
 /**
+ * Delete single history entry
+ */
+export async function deleteHistoryRecord(id) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/history/${id}`, {
+      method: 'DELETE'
+    });
+    return res.ok;
+  } catch (error) {
+    console.error('Failed to delete history record:', error);
+    return false;
+  }
+}
+
+/**
+ * Clear all history entries
+ */
+export async function clearAllHistoryRecords() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/history`, {
+      method: 'DELETE'
+    });
+    return res.ok;
+  } catch (error) {
+    console.error('Failed to clear history records:', error);
+    return false;
+  }
+}
+
+/**
+ * User Registration API
+ */
+export async function apiRegister({ name, email, password, preferences }) {
+  const res = await fetch(`${API_BASE_URL}/auth/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password, preferences })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || 'Registration failed');
+  return data.data;
+}
+
+/**
+ * User Login API
+ */
+export async function apiLogin({ email, password }) {
+  const res = await fetch(`${API_BASE_URL}/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || 'Login failed');
+  return data.data;
+}
+
+/**
+ * Update User Preferences API
+ */
+export async function apiUpdatePreferences(preferences, token) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+  
+  const res = await fetch(`${API_BASE_URL}/auth/preferences`, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({ preferences })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || 'Failed to update preferences');
+  return data.data;
+}
+
+/**
  * Ask Gemini AI conversational assistant
  */
 export async function askAiAdvisor(message, context) {
@@ -116,6 +191,25 @@ export async function askAiAdvisor(message, context) {
     return json.data;
   } catch (error) {
     console.error('AI chat request failed:', error);
+    throw error;
+  }
+}
+
+/**
+ * Execute a Sovereign Intelligence Agent Node with Grounded Telemetry
+ */
+export async function executeAgentAnalysis({ agentId, telemetry, customQuery }) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/ai/agent-analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ agentId, telemetry, customQuery })
+    });
+    if (!res.ok) throw new Error(`Agent execution failed with status: ${res.status}`);
+    const json = await res.json();
+    return json.data;
+  } catch (error) {
+    console.error(`Sovereign agent [${agentId}] error:`, error);
     throw error;
   }
 }

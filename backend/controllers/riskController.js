@@ -1,9 +1,10 @@
 import { evaluateClimateRisk } from '../services/riskService.js';
 import { generateGeminiAdvice } from '../services/geminiService.js';
 import { addHistoryItem } from '../services/historyService.js';
+import { predictRiskWithML } from '../services/mlService.js';
 
 /**
- * @desc    Evaluate climate risk & synthesize contextual Gemini AI advice
+ * @desc    Evaluate climate risk, ML prediction & synthesize contextual Gemini AI advice
  * @route   POST /api/risk/evaluate
  * @access  Public
  */
@@ -26,7 +27,17 @@ export const evaluateRisk = async (req, res, next) => {
       activity
     });
 
-    // 2. Synthesize Gemini AI Contextual Explanation
+    // 2. Machine Learning Time-Series Prediction
+    const mlPrediction = predictRiskWithML({
+      temperature: weather.temperature,
+      feelsLike: weather.feelsLike,
+      humidity: weather.humidity,
+      precipitation: weather.precipitation,
+      windSpeed: weather.windSpeed,
+      weatherCode: weather.weatherCode
+    });
+
+    // 3. Synthesize Gemini AI Contextual Explanation
     const aiExplanation = await generateGeminiAdvice({
       weather,
       airQuality,
@@ -38,10 +49,11 @@ export const evaluateRisk = async (req, res, next) => {
 
     const fullResult = {
       ...riskAssessment,
+      mlPrediction,
       aiExplanation
     };
 
-    // 3. Optional automatic audit history capture
+    // 4. Optional automatic audit history capture
     if (saveToHistory) {
       addHistoryItem({
         location: location?.name || 'Live Location',
@@ -58,6 +70,33 @@ export const evaluateRisk = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: fullResult
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc    Predict risk using validated Random Forest ML model
+ * @route   POST /api/risk/ml-predict
+ * @access  Public
+ */
+export const predictRiskML = async (req, res, next) => {
+  try {
+    const { temperature, feelsLike, humidity, precipitation, windSpeed, weatherCode } = req.body;
+
+    const prediction = predictRiskWithML({
+      temperature,
+      feelsLike,
+      humidity,
+      precipitation,
+      windSpeed,
+      weatherCode
+    });
+
+    res.status(200).json({
+      success: true,
+      data: prediction
     });
   } catch (error) {
     next(error);

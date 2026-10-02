@@ -1,4 +1,4 @@
-import { generateGeminiAdvice, chatWithClimateAssistant } from '../services/geminiService.js';
+import { generateGeminiAdvice, chatWithClimateAssistant, executeSovereignAgent } from '../services/geminiService.js';
 
 /**
  * @desc    Generate tailored Gemini AI climate briefing
@@ -51,6 +51,37 @@ export const chatAdvisor = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: response
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc    Execute a Sovereign Intelligence Agent Node
+ * @route   POST /api/ai/agent-analyze
+ * @access  Public
+ */
+export const executeAgent = async (req, res, next) => {
+  try {
+    const { agentId, telemetry, customQuery } = req.body;
+
+    if (!agentId) {
+      return res.status(400).json({
+        success: false,
+        message: 'agentId is required.'
+      });
+    }
+
+    const report = await executeSovereignAgent({
+      agentId,
+      telemetry: telemetry || {},
+      customQuery: customQuery || ''
+    });
+
+    res.status(200).json({
+      success: true,
+      data: report
     });
   } catch (error) {
     next(error);
