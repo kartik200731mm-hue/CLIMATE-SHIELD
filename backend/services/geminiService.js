@@ -9,7 +9,11 @@ const getGeminiModel = () => {
     return null;
   }
   const genAI = new GoogleGenerativeAI(apiKey.trim());
-  const modelName = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
+  let modelName = (process.env.GEMINI_MODEL || 'gemini-1.5-flash').trim();
+  // Ensure valid official Gemini model identifier
+  if (!modelName || modelName.includes('3.5') || modelName === '') {
+    modelName = 'gemini-1.5-flash';
+  }
   return genAI.getGenerativeModel({ model: modelName });
 };
 
