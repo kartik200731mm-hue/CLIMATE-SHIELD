@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 import { generateToken } from '../middleware/authMiddleware.js';
+import { connectDB } from '../config/db.js';
 import mongoose from 'mongoose';
 
 // Resilient memory store for development when MongoDB Atlas is offline
@@ -30,6 +31,9 @@ export const registerUser = async (req, res, next) => {
     }
 
     const cleanEmail = email.toLowerCase().trim();
+
+    // Ensure MongoDB connection is established in serverless environment
+    await connectDB();
 
     // 1. Try MongoDB if connected
     if (mongoose.connection.readyState === 1) {
@@ -125,6 +129,9 @@ export const loginUser = async (req, res, next) => {
 
     const cleanEmail = email.toLowerCase().trim();
 
+    // Ensure MongoDB connection is established in serverless environment
+    await connectDB();
+
     // 1. Try MongoDB if connected
     if (mongoose.connection.readyState === 1) {
       const user = await User.findOne({ email: cleanEmail }).select('+password');
@@ -196,6 +203,7 @@ export const loginUser = async (req, res, next) => {
  */
 export const getCurrentUser = async (req, res, next) => {
   try {
+    await connectDB();
     if (mongoose.connection.readyState === 1 && req.user?.id) {
       const user = await User.findById(req.user.id);
       if (user) {
@@ -242,6 +250,7 @@ export const updatePreferences = async (req, res, next) => {
       });
     }
 
+    await connectDB();
     if (mongoose.connection.readyState === 1 && req.user?.id) {
       const user = await User.findByIdAndUpdate(
         req.user.id,

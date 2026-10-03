@@ -39,6 +39,16 @@ app.use(cors({
 // Body parser
 app.use(express.json());
 
+// Serverless DB Connection Middleware
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+  } catch (e) {
+    // Graceful fallback if database connection fails
+  }
+  next();
+});
+
 // API Health Check
 app.get('/api/health', (req, res) => {
   res.status(200).json({

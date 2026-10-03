@@ -1,43 +1,49 @@
 import mongoose from 'mongoose';
 
 /**
- * MongoDB Atlas Connection Manager with Resilient Fallback
- * Automatically connects to MongoDB if MONGO_URI is set,
- * or gracefully logs offline status without crashing the server.
+ * MongoDB Atlas Connection Manager with Serverless Connection Pooling
+ * Caches connection promise to eliminate cold-start latency and avoid duplicate pools.
  */
-let isConnected = false;
+let cachedPromise = null;
 
 export const connectDB = async () => {
   const uri = process.env.MONGO_URI || process.env.MONGODB_URI;
 
   if (!uri || uri.trim() === '' || uri.includes('your_mongodb_uri')) {
-    console.log('[Database] MONGO_URI not provided. Utilizing resilient local store for session persistence.');
     return false;
   }
 
-  if (isConnected) {
+  // If already connected, return immediately
+  if (mongoose.connection.readyState === 1) {
     return true;
   }
 
-  try {
-    const conn = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000
-    });
+  // If a connection attempt is in-flight, await the cached promise
+  if (cachedPromise) {
+    return cachedPromise;
+  }
 
-    isConnected = true;
+  cachedPromise = mongoose.connect(uri.trim(), {
+    serverSelectionTimeoutMS: 8000,
+    socketTimeoutMS: 45000,
+    bufferCommands: false
+  }).then((conn) => {
     console.log(`[Database] MongoDB Atlas Connected: ${conn.connection.host}/${conn.connection.name}`);
     return true;
-  } catch (error) {
+  }).catch((error) => {
+    cachedPromise = null;
     console.warn(`[Database Warning] Could not connect to MongoDB Atlas (${error.message}). Falling back to resilient local store.`);
     return false;
-  }
+  });
+
+  return cachedPromise;
 };
 
 export const getDbStatus = () => {
+  const isConn = mongoose.connection.readyState === 1;
   return {
-    connected: isConnected,
-    database: isConnected ? mongoose.connection.name : 'Local Persistent Cache',
-    provider: isConnected ? 'MongoDB Atlas' : 'Local File Persistence'
+    connected: isConn,
+    database: isConn ? mongoose.connection.name : 'Local Persistent Cache',
+    provider: isConn ? 'MongoDB Atlas' : 'Local File Persistence'
   };
 };
