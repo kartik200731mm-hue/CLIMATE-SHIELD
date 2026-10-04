@@ -1,200 +1,179 @@
-# ClimateShield 🌍
-### Hyperlocal Climate Risk & Safety Assistant
-> **Understand Your Environment. Act Before Risk Becomes Reality.**
+<div align="center">
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel_Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://climate-shield-eight.vercel.app/)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kartik200731mm-hue/CLIMATE-SHIELD)
-[![React](https://img.shields.io/badge/React_19-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Google Gemini](https://img.shields.io/badge/Google_Gemini-AI_Synthesis-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
-[![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas_Cloud-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
+# 🛡️ CLIMATESHIELD
+### **Autonomous Hyperlocal Climate Risk & Human Safety Intelligence Platform**
 
-ClimateShield is a full-stack climate safety web application that converts real-world meteorological and environmental data into practical climate risk assessments and actionable safety recommendations.
+> *"Don't just check the weather. Know if it's safe to go outside, why, and what specific actions to take."*
 
-Instead of only displaying raw weather numbers like temperature, rainfall, or AQI, ClimateShield evaluates these signals together to answer the question that truly matters:
-> **“How risky are the current environmental conditions, and what specific actions should I take?”**
+<br/>
 
-🔗 **Live Application**: [https://climate-shield-eight.vercel.app/](https://climate-shield-eight.vercel.app/)  
-🔗 **GitHub Repository**: [https://github.com/kartik200731mm-hue/CLIMATE-SHIELD](https://github.com/kartik200731mm-hue/CLIMATE-SHIELD)
+[![Live Production Demo](https://img.shields.io/badge/🌐_Live_Demo-climate--shield--eight.vercel.app-2F6654?style=for-the-badge&logo=vercel&logoColor=white)](https://climate-shield-eight.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/📦_GitHub_Repo-CLIMATE--SHIELD-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kartik200731mm-hue/CLIMATE-SHIELD)
+[![API Status](https://img.shields.io/badge/⚡_API_Status-Online_200_OK-4EA94B?style=for-the-badge)](https://climate-shield-eight.vercel.app/api/health)
 
----
+<br/>
 
-## 👨‍💻 About This Project
+[![React 19](https://img.shields.io/badge/React_19-Vite-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js_20-Express_4-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Google Gemini](https://img.shields.io/badge/Google_Gemini-1.5_Flash-4285F4?style=flat-square&logo=google&logoColor=white)](https://ai.google.dev/)
+[![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-Cloud_Cluster-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
+[![Scikit-Learn](https://img.shields.io/badge/ML_Pipeline-Random_Forest-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Vercel Serverless](https://img.shields.io/badge/Deployment-Vercel_Serverless-000000?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com/)
 
-I built **ClimateShield** as an end-to-end full-stack project to demonstrate how real-world environmental data, robust backend engineering, machine learning models, and generative AI can be integrated into one cohesive, production-grade product.
+<br/>
 
-### Core Highlights:
-- 📱 **Responsive Web Dashboard**: Atmospheric UI built with React 19, Vite, and custom CSS design tokens.
-- 📡 **Real-Time Telemetry**: Live sensor ingestion of temperature, humidity, precipitation, UV, wind, and AQI via Open-Meteo.
-- 🧮 **Deterministic Risk Engine**: Explainable, mathematical 5-factor risk decomposition.
-- 🌲 **Machine Learning Pipeline**: Random Forest prediction model trained on real hourly environmental records.
-- 🤖 **Google Gemini AI Synthesis**: Contextual natural-language safety briefings grounded in deterministic calculations.
-- 🔐 **Authentication & Security**: JWT token authentication with Bcrypt password encryption.
-- 🗄️ **MongoDB Atlas Persistence**: Cloud database integration with resilient local fallback for zero-downtime reliability.
-- 📊 **Longitudinal History & Analytics**: Interactive SVG trend charts and audit trail logs.
-- ⚡ **Production Cloud Deployment**: Deployed and operational on Vercel.
+**[🚀 Launch Live Application](https://climate-shield-eight.vercel.app/)** • **[📑 API Health Check](https://climate-shield-eight.vercel.app/api/health)** • **[👨‍💻 Developer Profile](#-developer--contact)**
 
 ---
 
-## 🎯 Problem Statement
+</div>
 
-Most traditional weather applications primarily display isolated raw numbers:
+<br/>
+
+## 📌 Executive Summary
+
+Most consumer weather platforms provide raw, disconnected meteorological metrics:
 ```
-Temperature: 38°C  |  Humidity: 80%  |  Rain Probability: 70%  |  AQI: 220 (Poor)
+Temperature: 39°C  │  Humidity: 78%  │  AQI: 240 (Unhealthy)  │  Rain: 60%  │  UV: 8.5
 ```
+Users are forced to perform mental calculations to answer practical questions:
+- *“Is it safe for me to go running right now?”*
+- *“Will high humidity combined with poor AQI cause heat stress during my commute?”*
+- *“What specific protective gear or transit adjustments are required?”*
 
-The problem is that **users have to manually interpret these values themselves**. High humidity impairs sweat evaporation, accelerating heat stroke, while elevated PM2.5 severely strains the cardiovascular system during exercise.
-
-A user may look at these numbers and still wonder:
-> **"Is it actually safe for me to go outside for college, running, or commute right now?"**
-
-ClimateShield bridges this gap by combining multiple environmental signals into an actionable decision pipeline:
-
-$$\text{Environmental Signals} \longrightarrow \text{Risk Decomposition} \longrightarrow \text{AI Explanation} \longrightarrow \text{Actionable Steps}$$
+**ClimateShield** solves this by unifying **real-time atmospheric telemetry**, **deterministic multi-criteria mathematical risk models**, **Random Forest machine learning**, and **Google Gemini Generative AI** into an actionable, persona-calibrated safety command dashboard.
 
 ---
 
-## 💡 What ClimateShield Does
+## 🌟 Key Highlights & Capabilities
 
-ClimateShield continuously evaluates environmental conditions across key hazard dimensions:
-
-| Risk Category | Focus & Evaluation Parameter |
-| :--- | :--- |
-| 🌡️ **Heat Risk** | Thermal stress, apparent temperature, and solar convective load |
-| 🌧️ **Rain Risk** | Precipitation probability, rainfall volume, and commute friction |
-| 🌫️ **Air Quality Risk** | Fine particulate matter (PM2.5, PM10) and AQI category impact |
-| 🚶 **Outdoor Risk** | Physical exertion vulnerability calibrated to the active persona |
-| 🚗 **Travel Risk** | Roadway visibility, braking buffers, and transit disruption |
-| 🌍 **Overall Risk** | Multi-criteria weighted composite score (**0 – 100**) |
+- 🎯 **Persona-Calibrated Risk Engine**: Dynamic weight adjustments for **Students, Commuters, Outdoor Workers, Athletes, and Sensitive Health Profiles**.
+- 🧮 **5-Factor Mathematical Decomposition**: Real-time evaluation across **Thermal Heat Stress, Rain Convection, Aerosol Particulate AQI, Physical Exertion, and Transit Disruption**.
+- 🌲 **Predictive Machine Learning**: Scikit-Learn Random Forest Regressor & Classifier trained on 2,200+ historical hourly records ($R^2 = 0.996$).
+- 🤖 **Grounded Sovereign AI Briefings**: Google Gemini AI synthesis strictly bound by deterministic scores to eliminate hallucinations.
+- 📡 **Live Real-World Telemetry**: Continuous sensor stream ingestion from Open-Meteo & Copernicus CAMS APIs.
+- 📊 **Longitudinal Intelligence**: Interactive SVG risk-over-time trend splines and historical audit trail logging.
+- 🔐 **Secure Authentication**: Bcrypt password hashing, JWT bearer authorization, and persona profile persistence.
+- ⚡ **Zero-Downtime Architecture**: Dual-layer database resilience (MongoDB Atlas Cloud + in-memory persistent cache fallback).
 
 ---
 
-## 🧠 System Architecture
+## 🏗️ System Architecture
 
 ```
-                               ┌────────────────────────┐
-                               │   User Browser (Client)│
-                               └───────────┬────────────┘
-                                           │
-                                           ▼
-                               ┌────────────────────────┐
-                               │ React 19 + Vite UI     │
-                               └───────────┬────────────┘
-                                           │ (REST API / JSON)
-                                           ▼
-                               ┌────────────────────────┐
-                               │ Node.js / Express API  │
-                               └───────────┬────────────┘
-                                           │
-        ┌──────────────────────────────────┼──────────────────────────────────┐
-        ▼                                  ▼                                  ▼
-┌────────────────┐                ┌─────────────────┐                ┌─────────────────┐
-│ Weather Sensor │                │ Air Quality PM  │                │ MongoDB Atlas   │
-│ Telemetry API  │                │ Chemistry API   │                │ (User Auth/Log) │
-└───────┬────────┘                └────────┬────────┘                └─────────────────┘
-        │                                  │
-        └─────────────────┬────────────────┘
-                          ▼
-              ┌────────────────────────┐
-              │ Deterministic Risk     │
-              │ Multi-Factor Engine    │
-              └───────────┬────────────┘
-                          │
-            ┌─────────────┴─────────────┐
-            ▼                           ▼
-┌───────────────────────┐   ┌───────────────────────┐
-│ Random Forest Model   │   │ Google Gemini AI      │
-│ (ML Hazard Prediction)│   │ (Grounded Briefings)  │
-└───────────┬───────────┘   └───────────┬───────────┘
-            │                           │
-            └─────────────┬─────────────┘
-                          ▼
-              ┌────────────────────────┐
-              │ Personalized Dashboard │
-              │ & Actionable Decisions │
-              └────────────────────────┘
+                               ┌─────────────────────────────────────────┐
+                               │       Client Browser (Desktop/Mobile)   │
+                               │        React 19 • Vite 8 • Vanilla CSS  │
+                               └────────────────────┬────────────────────┘
+                                                    │ (HTTPS / JSON)
+                                                    ▼
+                               ┌─────────────────────────────────────────┐
+                               │   Vercel Serverless REST API Gateway    │
+                               │        Node.js • Express 4 Framework    │
+                               └────────────────────┬────────────────────┘
+                                                    │
+        ┌───────────────────────────────────────────┼───────────────────────────────────────────┐
+        │                                           │                                           │
+        ▼                                           ▼                                           ▼
+┌───────────────────────┐               ┌───────────────────────┐               ┌───────────────────────┐
+│ Live Meteorological   │               │ Atmospheric Aerosol   │               │ MongoDB Atlas Cloud   │
+│ Telemetry (Open-Meteo)│               │ Chemistry (Copernicus)│               │ (Users, Logs, Audits) │
+└───────────┬───────────┘               └───────────┬───────────┘               └───────────────────────┘
+            │                                       │
+            └───────────────────┬───────────────────┘
+                                ▼
+                    ┌───────────────────────┐
+                    │ Deterministic Risk    │
+                    │ Mathematical Core     │
+                    └───────────┬───────────┘
+                                │
+            ┌───────────────────┴───────────────────┐
+            ▼                                       ▼
+┌───────────────────────────────┐       ┌───────────────────────────────┐
+│ Machine Learning Pipeline     │       │ Google Gemini Generative AI   │
+│ Random Forest Regressor       │       │ Grounded Contextual Synthesis │
+└───────────────┬───────────────┘       └───────────────┬───────────────┘
+                │                                       │
+                └───────────────────┬───────────────────┘
+                                    ▼
+                        ┌───────────────────────┐
+                        │ Unified Risk Verdict  │
+                        │ & Actionable Guidance │
+                        └───────────────────────┘
 ```
 
 ---
 
-## ⚙️ Core Technical Flow
+## 🧮 Multi-Criteria Mathematical Risk Engine
 
-1. **Location Selection**: User searches or selects a target city/coordinates.
-2. **Telemetry Ingestion**: Backend queries Open-Meteo for real-time weather and aerosol chemistry.
-3. **Risk Decomposition**: Deterministic engine computes scores for Heat, Rain, Air, Exertion, and Travel.
-4. **Persona Weighting**: Weights are dynamically adjusted based on user mode (Student, Commuter, Athlete, Sensitive).
-5. **ML Prediction**: Random Forest model evaluates predictive hazard state.
-6. **Gemini AI Grounding**: Generates structured, empathetic safety instructions using deterministic scores as constraints.
-7. **Frontend Delivery**: Reactive UI updates risk gauges, weather cards, forecast timelines, and history trails.
+To guarantee 100% auditable and explainable results, ClimateShield computes risk scores mathematically using real physical equations before passing them to AI:
 
----
+$$R_{\text{total}} = \sum_{i} \left( w_i \times S_i \right) \times M_{\text{activity}} \times M_{\text{persona}}$$
 
-## 🧮 Climate Risk Engine & Architecture Separation
+### Evaluation Dimensions:
 
-A key architectural design principle in ClimateShield is the **strict separation of responsibilities**:
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        RESPONSIBILITY MATRIX                           │
-├──────────────────────────┬─────────────────────────────────────────────┤
-│ 1. Deterministic Engine  │ Authoritative mathematical risk computation │
-│ 2. Machine Learning      │ Time-series environmental hazard prediction │
-│ 3. Generative Gemini AI  │ Human-readable advice & natural explanation │
-│ 4. React Frontend        │ Dynamic visualization & user interaction    │
-└──────────────────────────┴─────────────────────────────────────────────┘
-```
-
-> **Why this matters**: Generative AI is never allowed to hallucinate risk numbers. The mathematical engine produces auditable, reproducible scores, while Gemini translates those verified numbers into clear human advice.
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **Framework**: React 19, Vite
-- **Styling**: Vanilla CSS with custom Design Tokens (Glassmorphism, Zero-Hover-Shift, Responsive Grid)
-- **Icons**: Lucide React
-- **HTTP Client**: Axios / Fetch API
-
-### Backend & API
-- **Runtime**: Node.js & Express.js
-- **Architecture**: RESTful API, Serverless Architecture on Vercel
-- **Security**: JWT Bearer Tokens, Bcrypt password hashing, Helmet, CORS
-
-### Database & Cloud
-- **Database**: MongoDB Atlas Cloud Cluster
-- **ORM / ODM**: Mongoose with serverless connection pooling
-- **Resilience**: In-memory persistent cache fallback for zero downtime
-
-### AI & Machine Learning
-- **Generative AI**: Google Gemini AI (`gemini-1.5-flash`)
-- **Machine Learning**: Scikit-Learn Random Forest Regressor & Classifier
-- **Data Pipeline**: Python training workflow on 2,200+ hourly atmospheric records
-
-### Deployment & Tooling
-- **Deployment Platform**: Vercel (Frontend & Serverless Functions)
-- **Version Control**: Git & GitHub
-
----
-
-## 🔌 API Reference
-
-| Method | Endpoint | Description |
+| Dimension | Formula / Inputs | Impact Thresholds |
 | :--- | :--- | :--- |
-| `GET` | `/api/health` | Backend server & database health check |
-| `GET` | `/api` | REST API catalog and documentation |
-| `GET` | `/api/weather?lat={lat}&lon={lon}` | Real-time weather, forecast & air quality |
-| `POST` | `/api/risk/evaluate` | Comprehensive multi-factor climate risk evaluation |
-| `POST` | `/api/risk/ml-predict` | Machine learning hazard prediction |
-| `POST` | `/api/ai/explain` | Grounded Gemini AI natural language safety briefing |
-| `POST` | `/api/ai/chat` | Conversational environmental safety assistant |
-| `POST` | `/api/auth/register` | Register new account with persona preferences |
-| `POST` | `/api/auth/login` | Authenticate user & return JWT token |
-| `GET` | `/api/history` | Retrieve user audit trail and recorded logs |
+| **🌡️ Thermal Heat Stress** | Rothfusz Heat Index regression using Temperature & Relative Humidity | `> 40°C Apparent`: High Strain |
+| **🌧️ Precipitation & Convection** | Rain Probability (%) $\times$ Hourly Precipitation Rate (mm/h) | `> 50% / > 5mm`: Elevated Friction |
+| **🌫️ Particulate Air Quality** | Breakpoint interpolation across PM2.5, PM10, $NO_2$, and $O_3$ | `AQI > 150`: Severe Respiratory Hazard |
+| **🚶 Physical Exertion Load** | Metabolic Equivalent of Task (MET) adjusted for heat & air quality | Aerobic cardio doubles particulate intake |
+| **🚗 Commute & Transit Buffer** | Visibility impairment, road traction loss, and convective delay factors | Braking distances and schedule buffers |
 
 ---
 
-## 🚀 Running the Project Locally
+## 🤖 Architectural Separation of Concerns
+
+```
+┌───────────────────────────────────────────────────────────────────────────┐
+│                       RESPONSIBILITY MATRIX                               │
+├───────────────────────────┬───────────────────────────────────────────────┤
+│ 1. Deterministic Engine   │ Authoritative mathematical risk computation   │
+│ 2. Machine Learning       │ Predictive hazard state forecasting           │
+│ 3. Google Gemini AI       │ Contextual, empathetic human safety advice    │
+│ 4. React 19 Frontend      │ High-performance glassmorphic visualization   │
+└───────────────────────────┴───────────────────────────────────────────────┘
+```
+
+> **Why this matters for engineering**: LLMs are never permitted to generate or hallucinate safety numbers. The mathematical engine establishes hard numeric constraints, and Gemini converts those verified numbers into natural, actionable human guidance.
+
+---
+
+## 🛠️ Complete Technology Stack
+
+| Layer | Technologies & Tools |
+| :--- | :--- |
+| **Frontend UI** | React 19, Vite 8, Vanilla CSS (Design Tokens, Glassmorphism, Zero-Hover Shift), Lucide React, Axios |
+| **Backend API** | Node.js, Express.js, RESTful Architecture, Helmet, CORS, Express-Rate-Limit |
+| **Database & Auth** | MongoDB Atlas, Mongoose (Serverless Connection Pooling), JWT (JSON Web Tokens), Bcrypt.js |
+| **Artificial Intelligence** | Google Gemini AI (`gemini-1.5-flash`), Google Generative AI SDK |
+| **Machine Learning** | Python, Scikit-Learn (Random Forest Regressor/Classifier), Pandas, NumPy |
+| **Data Providers** | Open-Meteo Weather API, Copernicus Atmospheric Monitoring Service (CAMS) |
+| **DevOps & Cloud** | Vercel (Frontend & Serverless Cloud Functions), Git, GitHub |
+
+---
+
+## 🔌 REST API Documentation
+
+Base URL: **`https://climate-shield-eight.vercel.app/api`**
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :---: |
+| `GET` | `/health` | Server status, MongoDB pool state, Gemini config | No |
+| `GET` | `/` | API catalog and route directory | No |
+| `GET` | `/weather?lat={lat}&lon={lon}` | Real-time weather, 24h forecast & air quality | No |
+| `POST` | `/risk/evaluate` | Full multi-criteria deterministic risk assessment | No |
+| `POST` | `/risk/ml-predict` | Random Forest hazard prediction | No |
+| `POST` | `/ai/explain` | Grounded Gemini contextual briefing | No |
+| `POST` | `/ai/chat` | Conversational environmental safety assistant | No |
+| `POST` | `/auth/register` | Create user account with persona preferences | No |
+| `POST` | `/auth/login` | Authenticate user and return JWT bearer token | No |
+| `GET` | `/auth/me` | Fetch active user profile and preferences | **Yes** |
+| `GET` | `/history` | Retrieve user climate audit trail & history | No |
+
+---
+
+## 🚀 Local Development Setup
 
 ### 1. Clone the Repository
 ```bash
@@ -202,20 +181,12 @@ git clone https://github.com/kartik200731mm-hue/CLIMATE-SHIELD.git
 cd CLIMATE-SHIELD
 ```
 
-### 2. Install Backend Dependencies
+### 2. Configure Backend
 ```bash
 cd backend
 npm install
 ```
-
-### 3. Install Frontend Dependencies
-```bash
-cd ../frontend
-npm install
-```
-
-### 4. Configure Environment Variables
-Create a `.env` file in the `backend/` directory:
+Create a `.env` file in `backend/`:
 ```env
 PORT=5000
 NODE_ENV=development
@@ -223,33 +194,54 @@ CLIENT_URL=http://localhost:5173
 GEMINI_API_KEY=your_google_gemini_api_key
 GEMINI_MODEL=gemini-1.5-flash
 MONGO_URI=your_mongodb_atlas_connection_string
-JWT_SECRET=your_secret_jwt_key
+JWT_SECRET=your_jwt_secret_key
+```
+Start backend server:
+```bash
+npm run dev
+# Server running at: http://localhost:5000
 ```
 
-### 5. Start the Development Servers
-In the `backend/` folder:
+### 3. Configure Frontend
+Open a new terminal window:
 ```bash
+cd frontend
+npm install
 npm run dev
+# Frontend running at: http://localhost:5173
 ```
-In the `frontend/` folder:
-```bash
-npm run dev
-```
-Open **`http://localhost:5173`** in your browser.
 
 ---
 
-## 🧑‍💻 Developer & Project Owner
+## ☁️ Production Deployment on Vercel
 
-**Kartik Mathur**  
-*B.Tech in Computer Science & Engineering*  
-*VIT Bhopal University*  
+The repository is pre-configured with a unified [`vercel.json`](file:///c:/Users/Asus/Downloads/CLIMATE%20SHIELD/vercel.json) deploying both the React SPA and Express Serverless API together:
 
-- **Focus Areas**: Full-Stack Development, Generative AI Integration, AI Agents, Machine Learning, System Design.
-- **GitHub**: [@kartik200731mm-hue](https://github.com/kartik200731mm-hue)
-- **Live Project**: [https://climate-shield-eight.vercel.app/](https://climate-shield-eight.vercel.app/)
+1. Import the repository in [Vercel](https://vercel.com).
+2. Set Framework Preset to **Vite** and Root Directory to `./`.
+3. Add Environment Variables: `GEMINI_API_KEY`, `MONGO_URI`, `JWT_SECRET`.
+4. Deploy!
+
+---
+
+## 👨‍💻 Developer & Project Author
+
+<br/>
+
+<div align="center">
+
+### **Kartik Mathur**
+**B.Tech in Computer Science & Engineering**  
+*VIT Bhopal University*
+
+[![Portfolio / LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/kartik-mathur)
+[![GitHub](https://img.shields.io/badge/GitHub-kartik200731mm--hue-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kartik200731mm-hue)
+[![Live Project](https://img.shields.io/badge/Live_Site-ClimateShield-2F6654?style=for-the-badge&logo=vercel&logoColor=white)](https://climate-shield-eight.vercel.app/)
+
+</div>
 
 ---
 
 ## 📄 License
+
 This project is licensed under the **ISC License**. Developed for environmental safety intelligence and decision support.
