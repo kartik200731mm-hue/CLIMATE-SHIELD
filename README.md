@@ -1,6 +1,18 @@
 # 🛡️ CLIMATESHIELD — Hyperlocal Climate Risk & Safety Assistant
 
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live_Production-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://climate-shield-eight.vercel.app/)
+[![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js_Express-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Google Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
+
 > **"Don't just check the weather. Know if it's safe to go outside, why, and what to do."**
+
+🔗 **Live Production URL**: [https://climate-shield-eight.vercel.app/](https://climate-shield-eight.vercel.app/)  
+🔗 **API Health Endpoint**: [https://climate-shield-eight.vercel.app/api/health](https://climate-shield-eight.vercel.app/api/health)  
+📦 **GitHub Repository**: [https://github.com/kartik200731mm-hue/CLIMATE-SHIELD](https://github.com/kartik200731mm-hue/CLIMATE-SHIELD)
+
+---
 
 ClimateShield is a production-ready, full-stack climate intelligence and safety platform inspired by sovereign environmental command nodes (such as ClimateAI). It fuses real-time meteorological observations, time-series machine learning models, an authoritative deterministic multi-criteria decision engine, and Google Gemini Generative AI into a unified, atmospheric, human-centric decision system.
 
